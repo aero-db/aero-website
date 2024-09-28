@@ -4,70 +4,38 @@
 
 import { definePreset } from '@primevue/themes'
 import Aura from '@primevue/themes/aura'
+import type { PrimeVueConfiguration } from 'primevue/config'
 
-const AeroPreset = definePreset(Aura, {
+const AeroThemePreset = definePreset(Aura, {
   semantic: {
     primary: {
-      50: '{indigo.50}',
-      100: '{indigo.100}',
-      200: '{indigo.200}',
-      300: '{indigo.300}',
-      400: '{indigo.400}',
-      500: '{indigo.500}',
-      600: '{indigo.600}',
-      700: '{indigo.700}',
-      800: '{indigo.800}',
-      900: '{indigo.900}',
-      950: '{indigo.950}'
-    },
-    colorScheme: {
-      light: {
-        surface: {
-          0: '#ffffff',
-          50: '{neutral.50}',
-          100: '{neutral.100}',
-          200: '{neutral.200}',
-          300: '{neutral.300}',
-          400: '{neutral.400}',
-          500: '{neutral.500}',
-          600: '{neutral.600}',
-          700: '{neutral.700}',
-          800: '{neutral.800}',
-          900: '{neutral.900}',
-          950: '{neutral.950}'
-        }
-      },
-      dark: {
-        surface: {
-          0: '#ffffff',
-          50: '{neutral.50}',
-          100: '{neutral.100}',
-          200: '{neutral.200}',
-          300: '{neutral.300}',
-          400: '{neutral.400}',
-          500: '{neutral.500}',
-          600: '{neutral.600}',
-          700: '{neutral.700}',
-          800: '{neutral.800}',
-          900: '{neutral.900}',
-          950: '{neutral.950}'
-        }
-      }
+      50: '#e2f0ff',
+      100: '#b6d4fe',
+      200: '#8ab9fd',
+      300: '#5e9dfd',
+      400: '#328efc',
+      500: '#0c7dfb',
+      600: '#0a6ff6',
+      700: '#0860f1',
+      800: '#0652ec',
+      900: '#0446e7',
+      950: '#033ee4'
     },
 
     formField: {
       paddingX: '0.75rem',
-      paddingY: '0.4rem'
+      paddingY: '0.5rem'
     }
   }
 })
 
-export const AeroTheme = {
+export const AeroTheme: PrimeVueConfiguration = {
   theme: {
-    preset: AeroPreset,
+    preset: AeroThemePreset,
     options: {
+      darkModeSelector: '.dark-mode',
       cssLayer: {
-        name: 'primevue',
+        name: 'aero',
         order: 'tailwind-base, primevue, tailwind-utilities'
       }
     }
