@@ -19,7 +19,8 @@ import type { MenuItem } from 'primevue/menuitem'
 const items: MenuItem[] = [
   {
     label: 'Airports',
-    icon: 'mdi:airplane-takeoff'
+    icon: 'mdi:airplane-takeoff',
+    url: '/airports'
   }
 ]
 </script>
