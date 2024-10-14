@@ -1,28 +1,14 @@
 <template>
-  <DataTable
-    :value="airports"
-    :loading="isLoading"
-    :paginator="true"
-    :rows="10"
-    :rowsPerPageOptions="[5, 10, 20]"
-  >
-    <Column field="icao" header="ICAO">
-      <template #body="{ data }">
-        <RouterLink
-          :to="{
-            name: 'airport',
-            params: { icao: data.icao }
-          }"
-        >
-          <span>{{ data.icao }}</span>
+  <div class="flex flex-wrap">
+    <ul v-for="airport in airports" :key="airport.icao" class="p-2">
+      <li>
+        <RouterLink :to="`/airport/${airport.icao}`" class="hover:text-primary-300 duration-100">
+          <span class="mr-1 font-semibold">{{ airport.icao }}</span>
+          <span>{{ airport.name }}</span> -
         </RouterLink>
-      </template>
-    </Column>
-    <Column field="iata" header="IATA"></Column>
-    <Column field="name" header="Name"></Column>
-    <Column field="city" header="City"></Column>
-    <Column field="country" header="Country"></Column>
-  </DataTable>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -36,7 +22,7 @@ import { RouterLink } from 'vue-router'
 const { data: airports, isLoading } = useQuery({
   queryKey: ['airports'],
   queryFn: async () => {
-    const response = await fetch(import.meta.env.VITE_API_URL + '/airports')
+    const response = await fetch(import.meta.env.VITE_API_URL + '/airports?limit=300')
     return response.json()
   }
 })
