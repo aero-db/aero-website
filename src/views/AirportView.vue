@@ -1,7 +1,44 @@
 <template>
   <div class="flex flex-col">
-    <div class="m-auto flex justify-center w-full max-w-6xl">
-      <div v-if="airport" class="flex-1 flex flex-col justify-center align-middle">
+    <div class="relative w-screen h-96 flex justify-center">
+      <!-- MAP -->
+      <Map.OlMap
+        ref="mapRef"
+        v-if="airport && airport.coordinates"
+        class="w-full h-full absolute top-0 left-0"
+        :controls="[]"
+      >
+        <Map.OlView
+          ref="viewRef"
+          :center="[airport.coordinates.longitude, airport.coordinates.latitude]"
+          :zoom="14"
+          :padding="[0, 0, 0, 128]"
+        />
+        <!-- <Layers.OlTileLayer ref="osmLayer" title="OSM">
+          <Sources.OlSourceOsm />
+        </Layers.OlTileLayer> -->
+
+        <Layers.OlTileLayer>
+          <Sources.OlSourceTileJson
+            :url="'https://api.maptiler.com/maps/dataviz-dark/tiles.json?key=56RhtT7yhQhy27Y5n8xl'"
+            :tileSize="512"
+            crossOrigin="anonymous"
+          />
+        </Layers.OlTileLayer>
+      </Map.OlMap>
+      <div class="w-full h-full absolute top-0 left-0" id="map"></div>
+
+      <Map> </Map>
+
+      <!-- side overlay -->
+      <div
+        class="z-10 size-full absolute bg-gradient-to-r from-surface-900 from-10% via-70% to-90% via-transparent to-surface-900"
+      ></div>
+
+      <div
+        v-if="airport"
+        class="absolute p-6 h-full flex-1 flex flex-col z-20 justify-center align-middle w-full max-w-6xl"
+      >
         <h1 class="text-primary text-5xl font-semibold">{{ airport.icao }}</h1>
         <h2 class="text-4xl">{{ airport.name }}</h2>
         <div class="mt-4 opacity-70">
@@ -25,17 +62,45 @@
           </div>
         </div>
       </div>
-      <div class="flex-1 flex justify-center align-middle">
-        <canvas id="cobe" style="width: 500px; height: 500px" width="2000" height="2000"></canvas>
-      </div>
     </div>
 
-    <div class="mt-4">
-      <h3 class="mb-8 text-primary-300 text-3xl font-semibold">Overview</h3>
-      <ul>
-        <li></li>
-      </ul>
+    <div class="m-auto flex w-full max-w-6xl mt-4 p-6">
+      <h3 class="mb-8 text-primary-300 text-3xl font-semibold">Data</h3>
+      {{ JSON.stringify(airport) }}
+      <!-- <div class="flex-1 flex justify-center align-middle m-4">
+        <MapboxMap
+          v-if="airport && airport.coordinates"
+          :style="{
+            width: '400px',
+            height: '400px',
+            borderRadius: '1rem',
+            background: 'rgba(0, 0, 0, 0.1)'
+          }"
+          access-token="pk.eyJ1IjoiY3lyaWFxdWUtaGl2ZSIsImEiOiJjbHEwd2N2eWEwMmhrMnNtdjR2cWN3d2h0In0.zc0FY-k5BxRZDOGzlSt_xQ"
+          map-style="mapbox://styles/mapbox/dark-v11"
+          :zoom="1"
+          :center="[airport.coordinates.longitude, airport.coordinates.latitude]"
+          :projection="'globe'"
+        />
+      </div> -->
     </div>
+
+    <!-- <div class="mt-4">
+ 
+      <MapboxMap
+        v-if="airport && airport.coordinates"
+        :style="{
+          width: '100%',
+          height: '400px',
+          borderRadius: '1rem',
+          background: 'rgba(0, 0, 0, 0.1)'
+        }"
+        access-token="pk.eyJ1IjoiY3lyaWFxdWUtaGl2ZSIsImEiOiJjbHEwd2N2eWEwMmhrMnNtdjR2cWN3d2h0In0.zc0FY-k5BxRZDOGzlSt_xQ"
+        map-style="mapbox://styles/mapbox/dark-v11"
+        :zoom="14"
+        :center="[airport.coordinates.longitude, airport.coordinates.latitude]"
+      />
+    </div> -->
   </div>
 
   <!-- <div class="m-2">
@@ -46,50 +111,70 @@
 
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import createGlobe from 'cobe'
-import { onMounted } from 'vue'
+import { inject, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
-
-onMounted(() => {
-  let phi = 0
-  let canvas = document.getElementById('cobe') as HTMLCanvasElement
-
-  const globe = createGlobe(canvas, {
-    devicePixelRatio: 2,
-    width: 1000,
-    height: 1000,
-    phi: 0,
-    theta: 0,
-    dark: 0,
-    diffuse: 1.2,
-    scale: 1,
-    mapSamples: 10000,
-    mapBrightness: 6,
-    baseColor: [0.1, 0.1, 0.1],
-    markerColor: [0.5, 0.5, 1],
-    glowColor: [0.3, 0.3, 0.3],
-    offset: [0, 0],
-    markers: [
-      { location: [37.7595, -122.4367], size: 0.03 },
-      { location: [40.7128, -74.006], size: 0.1 }
-    ],
-    onRender: (state) => {
-      // Called on every animation frame.
-      // `state` will be an empty object, return updated params.
-      state.phi = phi
-      phi += 0.001
-    }
-  })
-})
+import { aero } from '@/api'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import { Layers, Map, Sources } from 'vue3-openlayers'
 
 const route = useRoute()
+const map = ref<typeof Map.OlMap>()
 
 const { data: airport, isLoading } = useQuery({
   queryKey: ['airport', route.params.icao],
   queryFn: async () => {
-    const response = await fetch(import.meta.env.VITE_API_URL + '/airports/' + route.params.icao)
-    return response.json()
+    return await aero.airport.get(String(route.params.icao))
   }
 })
+
+// ROKJ
+const runway = {
+  RunwayId: 40177,
+  AirportId: 23693,
+  Length: 6552,
+  Width: 140,
+  Surface: 'Asphalt',
+  Heading: 21.0680122375,
+  Number: '03',
+  Designator: 'NONE',
+  Latitude: 26.3634700775,
+  Longitude: 126.7138214111,
+  PrimaryTakeoff: 'YES',
+  PrimaryLanding: 'YES',
+  PrimaryPattern: 'LEFT',
+  SecondaryTakeoff: 'YES',
+  SecondaryLanding: 'YES',
+  SecondaryPattern: 'LEFT',
+  P_VASI_Type: 'PAPI4',
+  P_VASI_Side: 'LEFT',
+  P_VASI_Pitch: '3.0',
+  S_VASI_Type: 'PAPI4',
+  S_VASI_Side: 'LEFT',
+  S_VASI_Pitch: '3.0',
+  P_ApproachLights_System: '',
+  P_ApproachLights_Strobes: '',
+  P_ApproachLights_Reil: '',
+  P_ApproachLights_Touchdown: '',
+  P_ApproachLights_EndLights: '',
+  S_ApproachLights_System: '',
+  S_ApproachLights_Strobes: '',
+  S_ApproachLights_Reil: '',
+  S_ApproachLights_Touchdown: '',
+  S_ApproachLights_EndLights: '',
+  P_ILS_Heading: '21.1',
+  P_ILS_Frequency: '110.95',
+  P_ILS_Ident: 'IKX',
+  P_ILS_Name: 'ILS RW03',
+  P_ILS_MagVar: '-3.8000',
+  P_ILS_Pitch: '',
+  P_ILS_DMErange: '27',
+  S_ILS_Heading: '',
+  S_ILS_Frequency: '',
+  S_ILS_Ident: '',
+  S_ILS_Name: '',
+  S_ILS_MagVar: '',
+  S_ILS_Pitch: '',
+  S_ILS_DMErange: ''
+}
 </script>
