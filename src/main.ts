@@ -8,18 +8,15 @@ import App from './App.vue'
 import router from './router'
 import { AeroTheme } from './theme/theme'
 import { VueQueryPlugin } from '@tanstack/vue-query'
-import OpenLayersMap from 'vue3-openlayers'
-import { useGeographic } from 'ol/proj'
+import 'maplibre-gl/dist/maplibre-gl.css'
+import VueMaplibreGl from '@indoorequal/vue-maplibre-gl'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(VueMaplibreGl)
 app.use(PrimeVue, AeroTheme)
 app.use(VueQueryPlugin)
-app.use(OpenLayersMap, {
-  debug: true
-})
-useGeographic()
 
 app.mount('#app')

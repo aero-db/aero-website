@@ -2,37 +2,65 @@
   <div class="flex flex-col">
     <div class="relative w-screen h-96 flex justify-center">
       <!-- MAP -->
-      <Map.OlMap
-        ref="mapRef"
-        v-if="airport && airport.coordinates"
-        class="w-full h-full absolute top-0 left-0"
-        :controls="[]"
-      >
-        <Map.OlView
-          ref="viewRef"
+
+      <div class="w-full h-full absolute top-0 left-0" id="map">
+        <MglMap
+          @map:load="onMapLoad"
+          class="h-full"
+          :map-style="style"
+          ref="map"
+          v-if="airport && airport.coordinates"
           :center="[airport.coordinates.longitude, airport.coordinates.latitude]"
           :zoom="14"
-          :padding="[0, 0, 0, 128]"
-        />
-        <!-- <Layers.OlTileLayer ref="osmLayer" title="OSM">
-          <Sources.OlSourceOsm />
-        </Layers.OlTileLayer> -->
-
-        <Layers.OlTileLayer>
-          <Sources.OlSourceTileJson
-            :url="'https://api.maptiler.com/maps/dataviz-dark/tiles.json?key=56RhtT7yhQhy27Y5n8xl'"
-            :tileSize="512"
-            crossOrigin="anonymous"
-          />
-        </Layers.OlTileLayer>
-      </Map.OlMap>
-      <div class="w-full h-full absolute top-0 left-0" id="map"></div>
+          :pitch="60"
+        >
+          <MglGeoJsonSource
+            source-id="runway-03"
+            :data="{
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'LineString',
+                    coordinates: [
+                      [126.7102229206, 26.3550997303], // Secondary End
+                      [126.7174204227, 26.3718403348] // Primary End
+                    ]
+                  },
+                  properties: {
+                    RunwayId: 40177,
+                    AirportId: 23693,
+                    Length: 6552,
+                    Width: 140,
+                    Surface: 'Asphalt',
+                    Heading: 21.0680122375,
+                    Number: '03',
+                    Designator: 'NONE'
+                  }
+                }
+              ]
+            }"
+          >
+            <MglLineLayer
+              layer-id="runway-03"
+              :layout="{}"
+              :paint="{
+                'line-color': '#7586FF',
+                'line-width': 8,
+                'line-opacity': 0.5
+              }"
+            >
+            </MglLineLayer>
+          </MglGeoJsonSource>
+        </MglMap>
+      </div>
 
       <Map> </Map>
 
       <!-- side overlay -->
       <div
-        class="z-10 size-full absolute bg-gradient-to-r from-surface-900 from-10% via-70% to-90% via-transparent to-surface-900"
+        class="z-10 size-full absolute bg-gradient-to-r from-surface-900 from-10% via-70% to-90% to-transparent"
       ></div>
 
       <div
@@ -57,8 +85,15 @@
           <div class="flex align-middle">
             <span>03h30 AM UTC </span>
             <Icon class="text-primary-300 ml-2 text-2xl" icon="wi:wu-rain" />
-            <Icon class="text-primary-300 text-xl" icon="mdi:arrow-top-left-thin" />
-            <span>260°/40</span>
+            <div
+              v-if="weather && weather.current"
+              :style="{ transform: `rotate(${weather.current.wind_direction_10m}deg)` }"
+            >
+              <Icon class="text-primary-300 text-xl" icon="lets-icons:arrow-top-long" />
+            </div>
+
+            <span v-if="weather">{{ weather.current.wind_direction_10m }}°/</span>
+            <span v-if="weather">{{ weather.current.wind_speed_10m }}knt</span>
           </div>
         </div>
       </div>
@@ -67,40 +102,8 @@
     <div class="m-auto flex w-full max-w-6xl mt-4 p-6">
       <h3 class="mb-8 text-primary-300 text-3xl font-semibold">Data</h3>
       {{ JSON.stringify(airport) }}
-      <!-- <div class="flex-1 flex justify-center align-middle m-4">
-        <MapboxMap
-          v-if="airport && airport.coordinates"
-          :style="{
-            width: '400px',
-            height: '400px',
-            borderRadius: '1rem',
-            background: 'rgba(0, 0, 0, 0.1)'
-          }"
-          access-token="pk.eyJ1IjoiY3lyaWFxdWUtaGl2ZSIsImEiOiJjbHEwd2N2eWEwMmhrMnNtdjR2cWN3d2h0In0.zc0FY-k5BxRZDOGzlSt_xQ"
-          map-style="mapbox://styles/mapbox/dark-v11"
-          :zoom="1"
-          :center="[airport.coordinates.longitude, airport.coordinates.latitude]"
-          :projection="'globe'"
-        />
-      </div> -->
+      {{ weather }}
     </div>
-
-    <!-- <div class="mt-4">
- 
-      <MapboxMap
-        v-if="airport && airport.coordinates"
-        :style="{
-          width: '100%',
-          height: '400px',
-          borderRadius: '1rem',
-          background: 'rgba(0, 0, 0, 0.1)'
-        }"
-        access-token="pk.eyJ1IjoiY3lyaWFxdWUtaGl2ZSIsImEiOiJjbHEwd2N2eWEwMmhrMnNtdjR2cWN3d2h0In0.zc0FY-k5BxRZDOGzlSt_xQ"
-        map-style="mapbox://styles/mapbox/dark-v11"
-        :zoom="14"
-        :center="[airport.coordinates.longitude, airport.coordinates.latitude]"
-      />
-    </div> -->
   </div>
 
   <!-- <div class="m-2">
@@ -111,15 +114,16 @@
 
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { aero } from '@/api'
-import 'mapbox-gl/dist/mapbox-gl.css'
-import { Layers, Map, Sources } from 'vue3-openlayers'
-
+import { MglGeoJsonSource, MglLineLayer, MglMap } from '@indoorequal/vue-maplibre-gl'
+import type { Map } from 'maplibre-gl'
 const route = useRoute()
-const map = ref<typeof Map.OlMap>()
+const map = ref<Map>()
+
+const style = 'https://api.maptiler.com/maps/dataviz-dark/style.json?key=56RhtT7yhQhy27Y5n8xl'
 
 const { data: airport, isLoading } = useQuery({
   queryKey: ['airport', route.params.icao],
@@ -127,6 +131,11 @@ const { data: airport, isLoading } = useQuery({
     return await aero.airport.get(String(route.params.icao))
   }
 })
+
+function onMapLoad({ map: loadedMap }: { map: Map }) {
+  map.value = loadedMap
+  map.value.setPadding({ left: 300, top: 0, right: 0, bottom: 0 })
+}
 
 // ROKJ
 const runway = {
@@ -176,5 +185,21 @@ const runway = {
   S_ILS_MagVar: '',
   S_ILS_Pitch: '',
   S_ILS_DMErange: ''
+}
+
+const { data: weather } = useQuery({
+  queryKey: ['weather', airport.value?.coordinates],
+  enabled: !!airport.value,
+  queryFn: async () => {
+    if (!airport.value?.coordinates) return
+    return await getWeather(airport.value?.coordinates)
+  }
+})
+
+async function getWeather(coordinates: { latitude: number; longitude: number }) {
+  const response = await fetch(
+    `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current=temperature_2m,is_day,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m`
+  )
+  return response.json()
 }
 </script>
