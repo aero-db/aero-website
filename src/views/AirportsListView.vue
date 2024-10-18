@@ -18,12 +18,12 @@ import Column from 'primevue/column'
 
 import { useQuery } from '@tanstack/vue-query'
 import { RouterLink } from 'vue-router'
+import { aero } from '@/api'
 
 const { data: airports, isLoading } = useQuery({
   queryKey: ['airports'],
   queryFn: async () => {
-    const response = await fetch(import.meta.env.VITE_API_URL + '/airports?limit=300')
-    return response.json()
+    return aero.airport.list()
   }
 })
 </script>

@@ -1,5 +1,11 @@
 <template>
-  <canvas id="cobe" style="width: 500px; height: 500px" width="2000" height="2000"></canvas>
+  <canvas
+    class="animate-fadein animate-duration-1000"
+    id="cobe"
+    style="width: 500px; height: 500px"
+    width="2000"
+    height="2000"
+  ></canvas>
 </template>
 
 <script setup lang="ts">

@@ -17,6 +17,8 @@ app.use(createPinia())
 app.use(router)
 app.use(VueMaplibreGl)
 app.use(PrimeVue, AeroTheme)
-app.use(VueQueryPlugin)
+app.use(VueQueryPlugin, {
+  enableDevtoolsV6Plugin: true
+})
 
 app.mount('#app')
