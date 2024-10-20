@@ -70,7 +70,7 @@ watchDebounced(
     }
     query.value = newVal
   },
-  { debounce: 300 }
+  { debounce: 100 }
 )
 
 const {
