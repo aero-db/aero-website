@@ -1,14 +1,17 @@
 import express from 'express'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-import cors from 'cors'
 
-const path = __dirname + '/app/views/'
+import cors from 'cors'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url) // get the resolved path to the file
+const __dirname = path.dirname(__filename) // get the name of the directory
+
 const app = express()
 
 app.use(cors())
 
-app.use(express.static(path))
+app.use(express.static('./dist'))
 
 app.get('/', function (req, res) {
   res.sendFile(path + 'index.html')
