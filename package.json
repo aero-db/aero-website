@@ -16,7 +16,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@aerodb/js": "^0.0.13",
+    "@aerodb/js": "^0.0.15",
     "@indoorequal/vue-maplibre-gl": "^7.7.0",
     "@primevue/themes": "^4.0.5",
     "@sentry/vite-plugin": "^2.22.6",
