@@ -22,9 +22,6 @@ app.get('/', function (req, res) {
 // Serve static files from the Vue app
 app.use(express.static(path.join(__dirname, 'dist')))
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-})
 // Handle all other routes with the Vue app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
