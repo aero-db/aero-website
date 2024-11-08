@@ -20,6 +20,8 @@
       />
     </div>
 
+    <AirportRunways :icao="String(route.params.icao)" />
+
     <div class="m-auto flex flex-col w-full max-w-6xl mt-4 p-6">
       <h3 class="mb-8 text-primary-300 text-3xl font-semibold">NOTAM</h3>
 
@@ -103,6 +105,7 @@ import { aero } from '@/api'
 import type { Map } from 'maplibre-gl'
 import AirportInfos from '@/components/AirportInfos.vue'
 import AirportHeaderMap from '@/components/AirportHeaderMap.vue'
+import AirportRunways from '@/components/AirportRunways.vue'
 const route = useRoute()
 
 const { data: airport } = useQuery({
