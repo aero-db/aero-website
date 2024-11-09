@@ -20,7 +20,15 @@
       />
     </div>
 
-    <AirportRunways :icao="String(route.params.icao)" />
+    <AirportRunways
+      v-if="airport?.runways && airport?.runways.length > 0"
+      :icao="String(route.params.icao)"
+    />
+
+    <AirportFrequencies
+      v-if="airport?.frequencies && airport?.frequencies.length > 0"
+      :icao="String(route.params.icao)"
+    />
 
     <div class="m-auto flex flex-col w-full max-w-6xl mt-4 p-6">
       <h3 class="mb-8 text-primary-300 text-3xl font-semibold">NOTAM</h3>
@@ -102,13 +110,21 @@ import { useQuery } from '@tanstack/vue-query'
 import { useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { aero } from '@/api'
-import type { Map } from 'maplibre-gl'
 import AirportInfos from '@/components/AirportInfos.vue'
 import AirportHeaderMap from '@/components/AirportHeaderMap.vue'
 import AirportRunways from '@/components/AirportRunways.vue'
+import { watch } from 'vue'
+import AirportFrequencies from '@/components/AirportFrequencies.vue'
 const route = useRoute()
 
-const { data: airport } = useQuery({
+watch(
+  () => route.params.icao,
+  () => {
+    refetch()
+  }
+)
+
+const { data: airport, refetch } = useQuery({
   queryKey: ['airport', route.params.icao],
   queryFn: async () => {
     return await aero.airport.get(String(route.params.icao))
