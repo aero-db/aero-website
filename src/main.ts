@@ -8,6 +8,7 @@ import App from './App.vue'
 import router from './router'
 import { AeroTheme } from './theme/theme'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import Tooltip from 'primevue/tooltip'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import VueMaplibreGl from '@indoorequal/vue-maplibre-gl'
 import * as Sentry from '@sentry/vue'
@@ -34,5 +35,7 @@ app.use(PrimeVue, AeroTheme)
 app.use(VueQueryPlugin, {
   enableDevtoolsV6Plugin: true
 })
+
+app.directive('tooltip', Tooltip)
 
 app.mount('#app')

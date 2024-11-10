@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/airports',
       name: 'airports',
-      component: () => import('../views/AirportsListView.vue')
+      component: () => import('../views/MapView.vue')
     },
 
     {
@@ -21,7 +21,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AirportView.vue')
+      component: () => import('../views/MapView.vue')
     }
   ]
 })

@@ -3,7 +3,7 @@
     <div class="w-full max-w-5xl flex font-medium text-surface-300">
       <div class="flex-1 flex align-middle">
         <RouterLink to="/" class="p-4 hover:text-primary-300 duration-100 flex">
-          <Image class="mr-2" src="./icon.svg" :width="24" />
+          <Image class="mr-2" src="/icon.svg" :width="24" />
           <span class="text-primary font-bold">AeroDB</span>
         </RouterLink>
 
