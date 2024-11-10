@@ -8,8 +8,10 @@
       :key="runwayIndex"
     >
       <div>
-        <h4 class="text-xl font-semibold">RW {{ runway.name }}</h4>
-        <p class="text-sm">{{ runway.length }} x {{ runway.width }}m - {{ runway.surface }}</p>
+        <h4 class="text-xl font-semibold">
+          RW {{ runway.lowEnd?.ident }}/{{ runway.highEnd?.ident }}
+        </h4>
+        <p class="text-sm">{{ runway.length }} x {{ runway.width }}m of {{ runway.surface }}</p>
       </div>
       <div>
         <Icon class="text-primary-300" icon="carbon:warning-filled" />

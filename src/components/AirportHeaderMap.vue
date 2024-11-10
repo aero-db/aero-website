@@ -16,7 +16,9 @@
       :pitch="60"
     >
       <MglGeoJsonSource
-        source-id="runway-03"
+        v-for="runway in airport.runways"
+        :key="runway.name"
+        :source-id="runway.name"
         :data="{
           type: 'FeatureCollection',
           features: [
@@ -24,27 +26,15 @@
               type: 'Feature',
               geometry: {
                 type: 'LineString',
-                coordinates: [
-                  [126.7102229206, 26.3550997303], // Secondary End
-                  [126.7174204227, 26.3718403348] // Primary End
-                ]
+                coordinates: calculateRunwayEndCoordinates(runway)
               },
-              properties: {
-                RunwayId: 40177,
-                AirportId: 23693,
-                Length: 6552,
-                Width: 140,
-                Surface: 'Asphalt',
-                Heading: 21.0680122375,
-                Number: '03',
-                Designator: 'NONE'
-              }
+              properties: runway
             }
           ]
         }"
       >
         <MglLineLayer
-          layer-id="runway-03"
+          :layer-id="runway.name"
           :layout="{}"
           :paint="{
             'line-color': '#7586FF',
@@ -64,6 +54,7 @@ import { useQuery } from '@tanstack/vue-query'
 import type { Map } from 'maplibre-gl'
 import { aero } from '@/api'
 import { MglGeoJsonSource, MglLineLayer, MglMap } from '@indoorequal/vue-maplibre-gl'
+import type { Runway } from '@aerodb/js'
 
 const ready = ref(false)
 const map = ref<Map>()
@@ -136,4 +127,18 @@ const { data: airport } = useQuery({
 //   S_ILS_Pitch: '',
 //   S_ILS_DMErange: ''
 // }
+
+function calculateRunwayEndCoordinates(runway: Runway): Array<[number, number]> {
+  if (!runway.lowEnd?.coordinates || !runway.highEnd?.coordinates) {
+    return [
+      [0, 0],
+      [0, 0]
+    ]
+  }
+
+  return [
+    [runway.lowEnd.coordinates.longitude, runway.lowEnd.coordinates.latitude],
+    [runway.highEnd.coordinates.longitude, runway.highEnd.coordinates.latitude]
+  ]
+}
 </script>

@@ -16,13 +16,14 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@aerodb/js": "^0.0.16",
+    "@aerodb/js": "^0.0.17",
     "@indoorequal/vue-maplibre-gl": "^7.7.0",
     "@primevue/themes": "^4.0.5",
     "@sentry/vite-plugin": "^2.22.6",
     "@sentry/vue": "^8.34.0",
     "@tanstack/vue-query": "^5.56.2",
     "@tanstack/vue-query-devtools": "^5.59.13",
+    "@turf/turf": "^7.1.0",
     "@vueuse/core": "^11.1.0",
     "cobe": "^0.6.3",
     "cors": "^2.8.5",
