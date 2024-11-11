@@ -13,10 +13,24 @@
       </div>
       <div class="flex">
         <div v-for="item in items" :key="item.label" class="p-4">
-          <RouterLink :to="item.url" class="hover:text-primary-300 duration-100">
+          <RouterLink
+            :to="item.url"
+            class="hover:text-primary-300 duration-100"
+            v-if="!item.external"
+          >
             <!-- <Avatar :icon="item.icon" /> -->
             <span> {{ item.label }}</span>
           </RouterLink>
+          <a
+            :href="item.url"
+            target="_blank"
+            class="hover:text-primary-300 duration-100 flex items-center"
+            v-else
+          >
+            <!-- <Avatar :icon="item.icon" /> -->
+            <span> {{ item.label }}</span>
+            <Icon class="ml-1" :icon="'mingcute:external-link-line'" />
+          </a>
         </div>
       </div>
     </div>
@@ -25,11 +39,13 @@
 <script lang="ts" setup>
 import Image from 'primevue/image'
 import SearchBar from './SearchBar.vue'
+import { Icon } from '@iconify/vue/dist/iconify.js'
 
 const items: {
   label: string
   icon: string
   url: string
+  external?: boolean
 }[] = [
   {
     label: 'Airports',
@@ -49,7 +65,8 @@ const items: {
   {
     label: 'API',
     icon: 'mdi:code-braces',
-    url: '/api'
+    external: true,
+    url: 'https://api.aerodb.net/doc.html'
   }
 ]
 </script>
