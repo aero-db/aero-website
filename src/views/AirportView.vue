@@ -57,7 +57,9 @@ import { aero } from '@/api'
 import AirportInfos from '@/components/AirportInfos.vue'
 import { watch } from 'vue'
 import AirportMap from '@/components/AirportMap.vue'
+import { useTitle } from '@vueuse/core'
 const route = useRoute()
+const pageTitle = useTitle()
 
 watch(
   () => route.params.icao,
@@ -72,4 +74,11 @@ const { data: airport, refetch } = useQuery({
     return await aero.airport.get(String(route.params.icao))
   }
 })
+
+watch(
+  () => airport.value,
+  () => {
+    pageTitle.value = `${airport.value?.name} · ${airport.value?.icao} · AeroDB`
+  }
+)
 </script>
