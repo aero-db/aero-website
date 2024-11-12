@@ -63,6 +63,10 @@
     <Skeleton class="my-1 max-w-36" height="1rem"></Skeleton>
     <Skeleton class="my-1 max-w-36" height="1rem"></Skeleton>
     <Skeleton class="my-1 max-w-56" height="1rem"></Skeleton>
+    <Skeleton class="my-1 max-w-56" height="1rem"></Skeleton>
+    <Skeleton class="my-1 max-w-56" height="1rem"></Skeleton>
+    <Skeleton class="my-1 max-w-56" height="1rem"></Skeleton>
+    <Skeleton class="my-1 max-w-56" height="1rem"></Skeleton>
   </div>
 </template>
 

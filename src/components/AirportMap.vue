@@ -63,7 +63,7 @@ const style = 'https://api.maptiler.com/maps/dataviz-dark/style.json?key=56RhtT7
 
 function onMapLoad({ map: loadedMap }: { map: Map }) {
   map.value = loadedMap
-  map.value.setPadding({ left: 300, top: 0, right: 0, bottom: 0 })
+  map.value.setPadding({ left: 0, top: 0, right: 0, bottom: 0 })
   ready.value = true
 }
 

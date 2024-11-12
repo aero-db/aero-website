@@ -3,7 +3,7 @@
     <div class="fixed top-0 w-full z-30" v-if="!hideTopbar">
       <TopBar />
     </div>
-    <div class="pt-16 m-auto flex justify-center w-full max-w-6xl">
+    <div class="pt-16 m-auto w-full max-w-5xl">
       <RouterView />
     </div>
   </div>

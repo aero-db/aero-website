@@ -16,7 +16,7 @@
     class="absolute mt-4 bg-surface-900/95 p-2 border-2 border-surface-800 rounded"
   >
     <RouterLink
-      @click="showPanel = false"
+      @click="handleItemClick"
       class="flex p-2 hover:bg-surface-800 rounded duration-100"
       v-for="airport in searchResults?.airports"
       :key="airport.icao"
@@ -73,6 +73,10 @@ watchDebounced(
   { debounce: 100 }
 )
 
+const emit = defineEmits<{
+  (e: 'onItemClick'): void
+}>()
+
 const {
   data: searchResults,
   isLoading,
@@ -84,4 +88,9 @@ const {
   },
   queryFn: () => aero.search(query.value)
 })
+
+function handleItemClick() {
+  inputFocused.value = false
+  emit('onItemClick')
+}
 </script>

@@ -9,7 +9,7 @@
         Your complete and elegant source of aeronautical data
       </h2>
     </div>
-    <div class="absolute top-0 right-0">
+    <div class="absolute top-0 right-0 hidden md:block">
       <HomePageGlobe :airports="airports as any" />
     </div>
   </div>
