@@ -107,11 +107,6 @@ const items: {
   external?: boolean
 }[] = [
   {
-    label: 'Airports',
-    icon: 'mdi:airplane-takeoff',
-    url: '/airports'
-  },
-  {
     label: 'Airlines',
     icon: 'mdi:airplane',
     url: '/airlines'
