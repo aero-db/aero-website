@@ -106,18 +106,18 @@ const items: {
   url: string
   external?: boolean
 }[] = [
+  // {
+  //   label: 'Airlines',
+  //   icon: 'mdi:airplane',
+  //   url: '/airlines'
+  // },
+  // {
+  //   label: 'Flights',
+  //   icon: 'mdi:airplane-landing',
+  //   url: '/flights'
+  // },
   {
-    label: 'Airlines',
-    icon: 'mdi:airplane',
-    url: '/airlines'
-  },
-  {
-    label: 'Flights',
-    icon: 'mdi:airplane-landing',
-    url: '/flights'
-  },
-  {
-    label: 'API',
+    label: 'API Doc',
     icon: 'mdi:code-braces',
     external: true,
     url: 'https://api.aerodb.net/doc.html'
