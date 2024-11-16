@@ -78,7 +78,11 @@ const { data: airport, refetch } = useQuery({
 watch(
   () => airport.value,
   () => {
-    pageTitle.value = `${airport.value?.name} · ${airport.value?.icao} · AeroDB`
+    if (!airport.value) {
+      return
+    }
+
+    pageTitle.value = `${airport.value.name} · ${airport.value.iata || airport.value.icao} · AeroDB`
   }
 )
 </script>
