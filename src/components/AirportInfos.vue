@@ -1,8 +1,10 @@
 <template>
   <div v-if="airport">
     <h1 class="text-primary text-3xl font-semibold">
-      <span>{{ airport.icao }}</span>
-      <span class="text-primary-200 text-2xl ml-2 opacity-50">{{ airport.iata }}</span>
+      <span>{{ airport.iata || airport.icao }}</span>
+      <span v-if="airport.iata" class="text-primary-200 text-2xl ml-2 opacity-50">{{
+        airport.icao
+      }}</span>
     </h1>
 
     <h2 class="text-2xl" v-if="airport">{{ airport.name }}</h2>

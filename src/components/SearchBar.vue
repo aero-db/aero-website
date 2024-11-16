@@ -26,7 +26,7 @@
       }"
     >
       <Icon icon="mdi-airplane" class="text-primary text-2xl" />
-      <span class="ml-2 font-bold">{{ airport.icao }}</span>
+      <span class="ml-2 font-bold">{{ airport.iata || airport.icao }}</span>
       <span class="text-gray-300 ml-2">{{ airport.name }}</span>
     </RouterLink>
   </div>
