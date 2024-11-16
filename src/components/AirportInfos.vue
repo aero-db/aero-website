@@ -22,8 +22,9 @@
         <span class="text-primary-200 mr-2">Elevation:</span>
         <span class="font-semibold">{{ airport.elevation }}ft</span>
       </div>
-      <div>
-        <span class="text-primary-200 font-bold">Weather</span>
+
+      <div class="mt-4">
+        <span class="text-primary-200 font-bold">Current weather</span>
         <div class="flex align-middle">
           <AirportWeather
             v-if="airport && airport.coordinates"

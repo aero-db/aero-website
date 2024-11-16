@@ -5,7 +5,7 @@
       :icao="String(route.params.icao)"
     />
 
-    <div class="w-full h-96 p-0 m-0">
+    <div class="w-full h-96 p-0 m-0 mt-2">
       <AirportMap :icao="String(route.params.icao)" />
     </div>
 
