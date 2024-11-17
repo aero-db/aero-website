@@ -39,7 +39,7 @@
           :paint="{
             'line-color': '#7586FF',
             'line-width': 8,
-            'line-opacity': 0.5
+            'line-opacity': 1
           }"
         >
         </MglLineLayer>
@@ -59,7 +59,8 @@ import type { Runway } from '@aerodb/js'
 const ready = ref(false)
 const map = ref<Map>()
 
-const style = 'https://api.maptiler.com/maps/dataviz-dark/style.json?key=56RhtT7yhQhy27Y5n8xl'
+const style = 'https://api.maptiler.com/maps/satellite/style.json?key=56RhtT7yhQhy27Y5n8xl'
+// https://api.maptiler.com/maps/dataviz-dark/style.json?key=56RhtT7yhQhy27Y5n8xl
 
 function onMapLoad({ map: loadedMap }: { map: Map }) {
   map.value = loadedMap

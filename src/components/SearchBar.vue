@@ -1,5 +1,26 @@
 <template>
-  <IconField>
+  <AutoComplete
+    v-model="searchInput"
+    optionLabel="name"
+    :suggestions="searchResults?.airports"
+    @complete="handleComplete"
+  >
+    <template #option="slotProps">
+      <div class="flex items-center">
+        hello
+        <!-- <div>{{ slotProps.option.name }}</div> -->
+      </div>
+    </template>
+    <!-- <template #header>
+      <div class="font-medium px-3 py-2">Available Countries</div>
+    </template>
+    <template #footer>
+      <div class="px-3 py-3">
+        <Button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+      </div>
+    </template> -->
+  </AutoComplete>
+  <!-- <IconField>
     <InputIcon><Icon icon="mdi:magnify" /></InputIcon>
     <InputText ref="searchInput" v-model="inputValue" size="small" placeholder="Search" loading />
     <InputIcon>
@@ -8,7 +29,7 @@
         icon="line-md:loading-twotone-loop"
         class="text-primary animate-spin"
     /></InputIcon>
-  </IconField>
+  </IconField> -->
 
   <div
     ref="resultsPanel"
@@ -41,6 +62,7 @@ import InputIcon from 'primevue/inputicon'
 import InputText from 'primevue/inputtext'
 import { watchDebounced, useFocus, useElementHover } from '@vueuse/core'
 import { computed, ref } from 'vue'
+import { AutoComplete } from 'primevue'
 
 const inputValue = ref('')
 const query = ref('')
@@ -61,17 +83,9 @@ const showPanel = computed(() => {
   return true
 })
 
-watchDebounced(
-  inputValue,
-  (newVal) => {
-    if (newVal.length < 2) {
-      query.value = ''
-      return
-    }
-    query.value = newVal
-  },
-  { debounce: 100 }
-)
+function handleComplete() {
+  query.value = inputValue.value
+}
 
 const emit = defineEmits<{
   (e: 'onItemClick'): void
