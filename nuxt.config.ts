@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import Aura from '@primevue/themes/aura';
+import { AeroThemePreset } from './theme/theme';
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -13,7 +13,14 @@ export default defineNuxtConfig({
   primevue: {
     options: {
       theme: {
-        preset: Aura,
+        preset: AeroThemePreset,
+        options: {
+          // darkModeSelector: '.dark-mode',
+          cssLayer: {
+            name: 'aero',
+            order: 'tailwind-base, primevue, tailwind-utilities',
+          },
+        },
       },
     },
   },
