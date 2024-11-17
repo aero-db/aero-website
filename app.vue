@@ -1,7 +1,14 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 
-<script lang="ts" template></script>
+<script setup lang="ts">
+const nuxtApp = useNuxtApp();
+
+nuxtApp.vueApp;
+</script>
