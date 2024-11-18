@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'AeroDb Website',
       exec_mode: 'cluster',
-      port: '8080',
+      port: process.env.PORT || 3000,
       instances: 'max',
       script: './.output/server/index.mjs',
     },
