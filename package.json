@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": "pm2 start ./ecosystem.config.cjs"
   },
   "dependencies": {
     "@aerodb/js": "^0.0.21",
@@ -20,6 +21,7 @@
     "maplibre-gl": "^4.7.1",
     "nuxt": "^3.14.159",
     "nuxt-gtag": "^3.0.1",
+    "pm2": "^5.4.3",
     "primevue": "^4.2.2",
     "vue": "latest",
     "vue-router": "latest"
