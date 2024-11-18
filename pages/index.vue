@@ -1,14 +1,14 @@
 <template>
-  <div class="flex justify-center w-full h-full relative">
-    <div class="z-10 absolute flex flex-col items-center p-6 top-0 mt-48 left-0 max-w-96">
+  <div class="flex justify-center w-full h-full relative overflow-hidden">
+    <div class="z-10 flex flex-col items-center p-6 top-0 mt-48 left-0 max-w-96">
       <h1 class="text-4xl font-semibold flex align-middle">
         <Image class="mr-2" src="./icon.svg" :width="48" />
         <span>AeroDB</span>
       </h1>
       <h2 class="mt-4 text-4xl opacity-80 text-center">Your complete and elegant source of aeronautical data</h2>
     </div>
-    <div class="absolute">
-      <!-- <HomePageGlobe :airports="airports as any" /> -->
+    <div class="absolute mt-20">
+      <HomePageGlobe :airports="airports as any" />
     </div>
   </div>
 </template>

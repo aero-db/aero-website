@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Topbar from './Topbar.vue';
-import FooterBar from './FooterBar.vue';
 </script>
 
 <template>
@@ -9,6 +8,5 @@ import FooterBar from './FooterBar.vue';
     <div class="flex-1 mt-16">
       <slot />
     </div>
-    <FooterBar />
   </div>
 </template>

@@ -5,6 +5,9 @@ import { AeroThemePreset } from './theme/theme';
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
+  typescript: {
+    typeCheck: true,
+  },
   css: ['~/assets/css/main.css'],
   app: {
     head: {
@@ -15,7 +18,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiUrl: 'https://api.aerodb.net',
   },
-  modules: ['@primevue/nuxt-module'],
+  modules: ['@primevue/nuxt-module', '@nuxt/eslint'],
   primevue: {
     options: {
       theme: {
