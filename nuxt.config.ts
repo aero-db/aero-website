@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+import type { Airport } from '@aerodb/js';
 import { AeroThemePreset } from './theme/theme';
 
 export default defineNuxtConfig({
@@ -19,7 +20,14 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiUrl: 'https://api.aerodb.net',
   },
-  modules: ['@primevue/nuxt-module', '@nuxt/eslint', 'nuxt-gtag', '@sentry/nuxt/module'],
+  modules: [
+    '@primevue/nuxt-module',
+    '@nuxt/eslint',
+    'nuxt-gtag',
+    '@sentry/nuxt/module',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+  ],
   gtag: {
     id: 'G-9H8S0LMT88',
   },
@@ -35,6 +43,14 @@ export default defineNuxtConfig({
           },
         },
       },
+    },
+  },
+  sitemap: {
+    urls: async () => {
+      // fetch your URLs from a database or other source
+      const data = await fetch('https://api.aerodb.net/airports?limit=300');
+      const res = await data.json();
+      return res.map((airport: Airport) => `/airport/${airport.airportId}`);
     },
   },
   postcss: {
