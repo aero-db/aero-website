@@ -3,7 +3,7 @@
     <div class="flex w-full max-w-5xl font-medium text-surface-300 items-center justify-center">
       <NuxtLink
         :to="`/airport/${$route.params.airportId}`"
-        class="flex flex-col p-4 hover:text-primary-300 duration-100 items-center opacity-50"
+        class="flex flex-col p-4 duration-100 items-center opacity-50"
         active-class="!opacity-100"
       >
         <Icon class="text-xl" icon="mdi:airplane" />
@@ -11,7 +11,7 @@
       </NuxtLink>
       <NuxtLink
         :to="`/airport/${$route.params.airportId}/map`"
-        class="flex flex-col p-4 hover:text-primary-300 duration-100 items-center opacity-50"
+        class="flex flex-col p-4 duration-100 items-center opacity-50"
         active-class="!opacity-100"
       >
         <Icon class="text-xl" icon="icon-park-outline:road" />
