@@ -5,7 +5,7 @@
         <Icon class="text-xl" icon="mdi:airplane" />
         <span class="text-xs">Airports</span>
       </NuxtLink>
-      <NuxtLink to="search" class="flex flex-col p-4 hover:text-primary-300 duration-100 items-center opacity-50" active-class="opacity-100">
+      <NuxtLink to="/search" class="flex flex-col p-4 hover:text-primary-300 duration-100 items-center opacity-50" active-class="opacity-100">
         <Icon class="text-xl" icon="mdi:search" />
         <span class="text-xs">Search</span>
       </NuxtLink>

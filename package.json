@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@aerodb/js": "^0.0.21",
+    "@indoorequal/vue-maplibre-gl": "^7.7.1",
     "@primevue/themes": "^4.2.2",
+    "@vueuse/core": "^11.2.0",
     "cobe": "^0.6.3",
+    "maplibre-gl": "^4.7.1",
     "nuxt": "^3.14.159",
     "primevue": "^4.2.2",
     "vue": "latest",

@@ -2,7 +2,7 @@
   <div
     class="opacity-0 h-full duration-500"
     :class="{
-      'opacity-100': ready
+      'opacity-100': ready,
     }"
   >
     <MglMap
@@ -26,11 +26,11 @@
               type: 'Feature',
               geometry: {
                 type: 'LineString',
-                coordinates: calculateRunwayEndCoordinates(runway)
+                coordinates: calculateRunwayEndCoordinates(runway),
               },
-              properties: runway
-            }
-          ]
+              properties: runway,
+            },
+          ],
         }"
       >
         <MglLineLayer
@@ -39,7 +39,7 @@
           :paint="{
             'line-color': '#7586FF',
             'line-width': 8,
-            'line-opacity': 0.5
+            'line-opacity': 0.5,
           }"
         >
         </MglLineLayer>
@@ -49,34 +49,30 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, ref } from 'vue'
-import { useQuery } from '@tanstack/vue-query'
-import type { Map } from 'maplibre-gl'
-import { aero } from '@/api'
-import { MglGeoJsonSource, MglLineLayer, MglMap } from '@indoorequal/vue-maplibre-gl'
-import type { Runway } from '@aerodb/js'
+import { defineProps, ref } from 'vue';
+import type { Map } from 'maplibre-gl';
 
-const ready = ref(false)
-const map = ref<Map>()
+import { MglGeoJsonSource, MglLineLayer, MglMap } from '@indoorequal/vue-maplibre-gl';
+import type { Runway } from '@aerodb/js';
+import { aero } from '~/aero';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
-const style = 'https://api.maptiler.com/maps/dataviz-dark/style.json?key=56RhtT7yhQhy27Y5n8xl'
+const ready = ref(false);
+const map = ref<Map>();
+
+const style = 'https://api.maptiler.com/maps/dataviz-dark/style.json?key=56RhtT7yhQhy27Y5n8xl';
 
 function onMapLoad({ map: loadedMap }: { map: Map }) {
-  map.value = loadedMap
-  map.value.setPadding({ left: 0, top: 0, right: 0, bottom: 0 })
-  ready.value = true
+  map.value = loadedMap;
+  map.value.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
+  ready.value = true;
 }
 
 const props = defineProps<{
-  icao: string
-}>()
+  airportId: string;
+}>();
 
-const { data: airport } = useQuery({
-  queryKey: ['airport', props.icao],
-  queryFn: async () => {
-    return await aero.airport.get(String(props.icao))
-  }
-})
+const { data: airport } = useAsyncData(`airport:${props.airportId}`, () => aero.airport.get(props.airportId));
 
 // ROKJ
 // const runway = {
@@ -132,13 +128,13 @@ function calculateRunwayEndCoordinates(runway: Runway): Array<[number, number]> 
   if (!runway.lowEnd?.coordinates || !runway.highEnd?.coordinates) {
     return [
       [0, 0],
-      [0, 0]
-    ]
+      [0, 0],
+    ];
   }
 
   return [
     [runway.lowEnd.coordinates.longitude, runway.lowEnd.coordinates.latitude],
-    [runway.highEnd.coordinates.longitude, runway.highEnd.coordinates.latitude]
-  ]
+    [runway.highEnd.coordinates.longitude, runway.highEnd.coordinates.latitude],
+  ];
 }
 </script>
