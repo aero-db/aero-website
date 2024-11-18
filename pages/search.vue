@@ -38,7 +38,7 @@ watchDebounced(
   () => {
     searchAirports(search.value);
   },
-  { debounce: 300, maxWait: 500 }
+  { debounce: 300, maxWait: 300 }
 );
 
 const searchAirports = async (searchValue: string) => {
