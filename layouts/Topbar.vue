@@ -5,7 +5,7 @@
     </div>
     <div class="flex-1 flex justify-center">
       <NuxtLink to="/" class="p-4 hover:text-primary-300 duration-100 flex items-center">
-        <Image class="mr-2" src="/icon.svg" :width="24" />
+        <Image class="mr-2" src="/icon.svg" :width="24" alt="AeroDB icon" />
         <span class="text-primary text-xl font-bold">AeroDB</span>
       </NuxtLink>
     </div>
