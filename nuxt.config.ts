@@ -2,6 +2,7 @@
 
 import type { Airport } from '@aerodb/js';
 import { AeroThemePreset } from './theme/theme';
+import { sitemapConfig } from './config/sitemaps.config';
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
@@ -38,14 +39,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  sitemap: {
-    urls: async () => {
-      // fetch your URLs from a database or other source
-      const data = await fetch('https://api.aerodb.net/airports/all');
-      const res = await data.json();
-      return res.map((airport: Airport) => `/airport/${airport.airportId}`);
-    },
-  },
+  sitemap: sitemapConfig,
   postcss: {
     plugins: {
       tailwindcss: {},
