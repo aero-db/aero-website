@@ -1,10 +1,10 @@
 <template>
-  <div class="px-4">
+  <div class="px-4" v-focustrap>
     <IconField>
       <InputIcon>
         <Icon icon="mdi:search" />
       </InputIcon>
-      <InputText type="search" class="w-full" size="large" v-model="search" placeholder="Search for an airport, airline, notam..." />
+      <InputText autofocus type="search" class="w-full" size="large" v-model="search" placeholder="Search for an airport, airline, notam..." />
     </IconField>
   </div>
   <div class="pt-4" v-if="results">
