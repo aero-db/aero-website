@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import Topbar from './Topbar.vue';
-</script>
-
 <template>
   <div class="flex flex-col w-screen h-screen overflow-auto">
     <Topbar />
@@ -10,3 +6,11 @@ import Topbar from './Topbar.vue';
     </div>
   </div>
 </template>
+<script setup lang="ts">
+import Topbar from './Topbar.vue';
+
+useSeoMeta({
+  title: `AeroDB`,
+  description: 'AeroDB - Your complete and elegant source of aeronautical data',
+});
+</script>

@@ -74,6 +74,10 @@ import { aero } from '~/aero';
 
 const { airportId } = useRoute().params;
 
-const route = useRoute();
 const { data: airport, error } = await useAsyncData(`airport:${airportId}`, () => aero.airport.get(String(airportId)));
+
+useSeoMeta({
+  title: `${airport.value?.name} (${airport.value?.iataCode || airport.value?.icaoCode || airport.value?.airportId}) - AeroDB`,
+  description: airport?.value?.name,
+});
 </script>
