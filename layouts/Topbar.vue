@@ -9,7 +9,7 @@
         <span class="text-primary text-xl font-bold">AeroDB</span>
       </NuxtLink>
     </div>
-    <NuxtLink to="/search" class="text-2xl px-4">
+    <NuxtLink to="/search" class="text-2xl p-4">
       <Icon icon="mdi:search" />
     </NuxtLink>
   </div>
