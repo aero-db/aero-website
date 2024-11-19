@@ -83,18 +83,15 @@
           </div>
         </Panel>
 
-        <Panel class="mt-2 opacity-70" collapsed v-if="airport.icaoCode">
+        <Panel class="mt-2" toggleable collapsed v-if="airport.icaoCode">
           <template #header>
             <div class="flex items-center">
               <Icon class="text-xl mr-1" icon="ri:radar-fill" />
               <span>METAR</span>
-              <Tag rounded severity="warn" class="ml-2 text-xs">
-                <span>Coming soon</span>
-              </Tag>
             </div>
           </template>
           <div>
-            <!-- <AirportMetar :icao="airport.icaoCode" /> -->
+            <AirportMetar :icao="airport.icaoCode" />
           </div>
         </Panel>
       </div>
