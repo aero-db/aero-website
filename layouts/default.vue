@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col w-screen h-screen overflow-auto">
+  <div class="flex flex-col w-screen h-screen">
     <div class="fixed z-20 top-0 left-0 w-screen h-screen bg-surface-900 flex items-center justify-center" v-if="showSplash">
       <Image src="/icon.svg" width="64" alt="AeroDB icon" />
     </div>
 
     <Topbar />
-    <div class="flex-1 mt-16">
+    <div class="flex-1 mt-16 overflow-auto">
       <slot />
     </div>
   </div>

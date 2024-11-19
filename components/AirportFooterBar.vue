@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center bg-surface-900 bg-opacity-70 backdrop-blur-sm border-surface-800 fixed bottom-0 left-0 w-full">
+  <div class="flex justify-center bg-surface-900 bg-opacity-70 backdrop-blur-sm border-surface-800">
     <div class="flex w-full max-w-5xl font-medium text-surface-300 items-center justify-center">
       <NuxtLink
         :to="`/airport/${$route.params.airportId}`"

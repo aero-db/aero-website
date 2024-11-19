@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 left-0 w-full flex justify-center items-center bg-surface-900 bg-opacity-70 backdrop-blur-sm border-surface-800">
+  <div class="fixed top-0 left-0 w-full flex justify-center items-center bg-surface-900 bg-opacity-70 backdrop-blur-sm border-surface-800 z-20">
     <div class="text-2xl px-4 opacity-0">
       <Icon icon="mdi:menu" />
     </div>

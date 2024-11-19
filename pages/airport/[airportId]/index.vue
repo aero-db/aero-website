@@ -1,12 +1,12 @@
 <template>
   <NuxtLayout name="airport">
-    <div class="flex">
-      <div v-if="airport" class="m-auto max-w-96 mb-20">
+    <div class="relative h-full">
+      <div v-if="airport" class="max-w-96 absolute z-10 p-4 sm:m-4 w-full sm:max-w-96 rounded-md overflow-x-hidden">
         <div class="flex p-2 mb-4 items-center">
           <div class="text-4xl m-2">
             <Icon icon="mdi:airplane" />
           </div>
-          <div class="flex flex-col overflow-hidden">
+          <div class="flex flex-col">
             <h1 class="text-2xl text-nowrap">{{ airport.name }}</h1>
             <h4>{{ airport.iataCode || airport.icaoCode || airport.airportId }}</h4>
           </div>
@@ -64,8 +64,10 @@
           </div>
         </Panel>
       </div>
-      <div class="flex-1">
-        <AirportMap :airport-id="String($route.params.airportId)" />
+      <div class="fixed left-0 top-0 w-full h-full hidden md:block">
+        <ClientOnly>
+          <AirportMap :airport-id="String($route.params.airportId)" />
+        </ClientOnly>
       </div>
     </div>
   </NuxtLayout>
@@ -76,8 +78,9 @@ import { Icon } from '@iconify/vue/dist/iconify.js';
 import { Divider, Panel } from 'primevue';
 import AirportWeather from '~/components/AirportWeather.vue';
 import { aero } from '~/aero';
-import AirportMap from '~/components/AirportMap.client.vue';
+import { defineAsyncComponent } from 'vue';
 
+const AirportMap = defineAsyncComponent(() => import('~/components/AirportMap.client.vue'));
 const { airportId } = useRoute().params;
 
 const { data: airport, error } = await useAsyncData(`airport:${airportId}`, () => aero.airport.get(String(airportId)));

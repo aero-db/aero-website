@@ -1,6 +1,10 @@
 <template>
-  <slot />
-  <AirportFooterBar />
+  <div class="flex flex-col h-full">
+    <div class="flex-1 overflow-auto">
+      <slot />
+    </div>
+    <AirportFooterBar />
+  </div>
 </template>
 
 <script setup lang="ts">
