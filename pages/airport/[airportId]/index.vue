@@ -1,16 +1,25 @@
 <template>
   <NuxtLayout name="airport">
     <div class="relative h-full">
-      <div v-if="airport" class="absolute z-10 p-4 sm:m-4 w-full sm:max-w-96 rounded-md overflow-x-hidden">
-        <div class="flex p-2 mb-4 items-center">
+      <div v-if="airport" class="absolute z-10 p-4 sm:m-4 w-full sm:max-w-96 rounded-md">
+        <div class="flex p-2 items-center">
           <div class="text-4xl m-2">
             <Icon icon="mdi:airplane" />
           </div>
           <div class="flex flex-col">
             <h1 class="text-2xl text-nowrap">{{ airport.name }}</h1>
-            <h4>{{ airport.iataCode || airport.icaoCode || airport.airportId }}</h4>
+            <div class="flex items-center">
+              <h4>{{ airport.iataCode || airport.icaoCode || airport.airportId }}</h4>
+              <!-- <Tag rounded severity="warn" class="ml-2 text-xs">
+                <span>Recently updated</span>
+              </Tag> -->
+            </div>
           </div>
         </div>
+
+        <!-- <div>
+          <AirportOptions :airportId="airport.airportId" />
+        </div> -->
 
         <Panel>
           <div class="flex items-center">
@@ -22,6 +31,16 @@
           <div v-if="airport.elevation">
             <span class="text-primary-200 mr-2">Elevation:</span>
             <span class="font-semibold">{{ airport.elevation }}ft</span>
+          </div>
+
+          <div v-if="airport.iataCode">
+            <span class="text-primary-200 mr-2">IATA:</span>
+            <span class="font-semibold">{{ airport.iataCode }}</span>
+          </div>
+
+          <div v-if="airport.icaoCode">
+            <span class="text-primary-200 mr-2">ICAO:</span>
+            <span class="font-semibold">{{ airport.icaoCode }}</span>
           </div>
 
           <Divider />
@@ -37,7 +56,7 @@
             </div>
           </div>
         </Panel>
-        <Panel class="mt-4" v-if="airport.runways && airport.runways.length > 0">
+        <Panel class="mt-2" v-if="airport.runways && airport.runways.length > 0" toggleable collapsed>
           <template #header>
             <div class="flex items-center">
               <Icon class="text-xl mr-1" icon="mingcute:road-line" />
@@ -51,7 +70,7 @@
             >
           </div>
         </Panel>
-        <Panel class="mt-4" v-if="airport.frequencies && airport.frequencies.length > 0">
+        <Panel class="mt-2" v-if="airport.frequencies && airport.frequencies.length > 0" toggleable collapsed>
           <template #header>
             <div class="flex items-center">
               <Icon class="text-xl mr-1" icon="lucide:radio-tower" />
@@ -61,6 +80,21 @@
           <div class="flex items-center" v-for="freq in airport.frequencies">
             <span class="text-primary-200 mr-2 font-semibold">{{ freq.name }}</span>
             <span>{{ freq.frequency }} </span>
+          </div>
+        </Panel>
+
+        <Panel class="mt-2 opacity-70" collapsed v-if="airport.icaoCode">
+          <template #header>
+            <div class="flex items-center">
+              <Icon class="text-xl mr-1" icon="ri:radar-fill" />
+              <span>METAR</span>
+              <Tag rounded severity="warn" class="ml-2 text-xs">
+                <span>Coming soon</span>
+              </Tag>
+            </div>
+          </template>
+          <div>
+            <!-- <AirportMetar :icao="airport.icaoCode" /> -->
           </div>
         </Panel>
       </div>
@@ -75,10 +109,12 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { Divider, Panel } from 'primevue';
+import { Button, Card, Divider, Panel, Tag } from 'primevue';
 import AirportWeather from '~/components/AirportWeather.vue';
 import { aero } from '~/aero';
 import { defineAsyncComponent } from 'vue';
+import AirportOptions from '~/components/AirportOptions.vue';
+import AirportMetar from '~/components/AirportMetar.vue';
 
 const AirportMap = defineAsyncComponent(() => import('~/components/AirportMap.client.vue'));
 const { airportId } = useRoute().params;
