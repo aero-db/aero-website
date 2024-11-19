@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-screen h-screen">
-    <div class="fixed z-20 top-0 left-0 w-screen h-screen bg-surface-900 flex items-center justify-center" v-if="showSplash">
+    <div class="absolute z-30 top-0 left-0 w-screen h-screen bg-surface-900 flex items-center justify-center" v-if="showSplash">
       <Image src="/icon.svg" width="64" alt="AeroDB icon" />
     </div>
 

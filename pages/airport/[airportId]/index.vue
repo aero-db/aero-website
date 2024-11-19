@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout name="airport">
     <div class="relative h-full">
-      <div v-if="airport" class="max-w-96 absolute z-10 p-4 sm:m-4 w-full sm:max-w-96 rounded-md overflow-x-hidden">
+      <div v-if="airport" class="absolute z-10 p-4 sm:m-4 w-full sm:max-w-96 rounded-md overflow-x-hidden">
         <div class="flex p-2 mb-4 items-center">
           <div class="text-4xl m-2">
             <Icon icon="mdi:airplane" />
