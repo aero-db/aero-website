@@ -12,7 +12,9 @@
       <Icon class="text-primary text-4xl m-2" icon="mdi:airplane" />
       <div class="flex flex-col">
         <span class="text-xl flex-1">{{ airport.name }}</span>
-        <span class="text-muted font-bold text-sm opacity-50">{{ airport.iataCode || airport.icaoCode || airport.airportId }}</span>
+        <div class="flex">
+          <span class="text-muted font-bold text-sm opacity-50">{{ airport.iataCode || airport.icaoCode || airport.airportId }}</span>
+        </div>
       </div>
     </NuxtLink>
   </div>
