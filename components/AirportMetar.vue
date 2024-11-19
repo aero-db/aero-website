@@ -1,5 +1,6 @@
 <template>
-  <span v-if="metars">{{ metars[0] }}</span>
+  <span v-if="metars && metars[0]">{{ metars[0] }}</span>
+  <span v-else>METAR not available</span>
 </template>
 
 <script setup lang="ts">
