@@ -10,13 +10,7 @@
       </NuxtLink>
     </div>
     <NuxtLink to="/search" class="flex items-center">
-      <IconField class="hidden sm:block mr-4">
-        <InputIcon>
-          <Icon icon="mdi:search" />
-        </InputIcon>
-        <InputText autofocus type="search" class="w-full" size="small" placeholder="Search for an airport, airline, notam..." />
-      </IconField>
-      <Icon class="block sm:hidden text-2xl m-4" icon="mdi:search" />
+      <Icon class="text-2xl m-4" icon="mdi:search" />
     </NuxtLink>
   </div>
 </template>
@@ -24,7 +18,6 @@
 import Image from 'primevue/image';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { ref } from 'vue';
-import { IconField, InputIcon, InputText } from 'primevue';
 
 const showDrawer = ref(false);
 

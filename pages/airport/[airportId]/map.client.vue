@@ -1,9 +1,7 @@
 <template>
   <NuxtLayout name="airport">
-    <div class="h-screen oveflow-hidden">
-      <div class="h-screen w-screen">
-        <AirportMapClient :airportId="String($route.params.airportId)" />
-      </div>
+    <div class="h-screen w-full">
+      <AirportMap :airportId="String($route.params.airportId)" />
     </div>
   </NuxtLayout>
 </template>
@@ -16,7 +14,7 @@ const { data: airport, error } = await useAsyncData(`airport:${String(route.para
 );
 
 import { aero } from '~/aero';
-import AirportMapClient from '~/components/AirportMap.client.vue';
+import AirportMap from '~/components/AirportMap.client.vue';
 
 useSeoMeta({
   title: `Map - ${airport.value?.name} (${airport.value?.iataCode || airport.value?.icaoCode || airport.value?.airportId}) - AeroDB`,

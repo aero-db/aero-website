@@ -5,7 +5,7 @@
     </div>
 
     <Topbar />
-    <div class="flex-1 mt-16 overflow-auto">
+    <div class="flex-1 mt-16 overflow-auto" id="body-content">
       <slot />
     </div>
   </div>

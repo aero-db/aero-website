@@ -3,7 +3,7 @@
     <div class="flex-1 overflow-auto">
       <slot />
     </div>
-    <AirportFooterBar />
+    <!-- <AirportFooterBar /> -->
   </div>
 </template>
 
