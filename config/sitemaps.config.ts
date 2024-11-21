@@ -45,7 +45,7 @@ export const sitemapConfig = {
     airportCountries: {
       urls: async () => {
         // fetch your URLs from a database or other source
-        const data = await fetch('https://api.aerodb.net/countries');
+        const data = await fetch('https://api.aerodb.net/countries?limit=300');
         const res = await data.json();
         return res.map((country: Country) => `/airports/${country.continent}/${country.alpha2}`);
       },
