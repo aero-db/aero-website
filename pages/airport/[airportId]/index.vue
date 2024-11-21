@@ -56,7 +56,7 @@
             </div>
           </div>
         </Panel>
-        <Panel class="mt-2" v-if="airport.runways && airport.runways.length > 0" toggleable collapsed>
+        <Panel class="mt-2" v-if="airport.runways && airport.runways.length > 0" toggleable>
           <template #header>
             <div class="flex items-center">
               <Icon class="text-xl mr-1" icon="mingcute:road-line" />
@@ -70,6 +70,19 @@
             >
           </div>
         </Panel>
+
+        <Panel class="mt-2" toggleable v-if="airport.icaoCode">
+          <template #header>
+            <div class="flex items-center">
+              <Icon class="text-xl mr-1" icon="ri:radar-fill" />
+              <span>METAR</span>
+            </div>
+          </template>
+          <div>
+            <AirportMetar :icao="airport.icaoCode" />
+          </div>
+        </Panel>
+
         <Panel class="mt-2" v-if="airport.frequencies && airport.frequencies.length > 0" toggleable collapsed>
           <template #header>
             <div class="flex items-center">
@@ -80,18 +93,6 @@
           <div class="flex items-center" v-for="freq in airport.frequencies">
             <span class="text-primary-200 mr-2 font-semibold">{{ freq.name }}</span>
             <span>{{ freq.frequency }} </span>
-          </div>
-        </Panel>
-
-        <Panel class="mt-2" toggleable collapsed v-if="airport.icaoCode">
-          <template #header>
-            <div class="flex items-center">
-              <Icon class="text-xl mr-1" icon="ri:radar-fill" />
-              <span>METAR</span>
-            </div>
-          </template>
-          <div>
-            <AirportMetar :icao="airport.icaoCode" />
           </div>
         </Panel>
       </div>
@@ -110,7 +111,6 @@ import { Button, Card, Divider, Panel, Tag } from 'primevue';
 import AirportWeather from '~/components/AirportWeather.vue';
 import { aero } from '~/aero';
 import { defineAsyncComponent } from 'vue';
-import AirportOptions from '~/components/AirportOptions.vue';
 import AirportMetar from '~/components/AirportMetar.vue';
 
 const AirportMap = defineAsyncComponent(() => import('~/components/AirportMap.client.vue'));
@@ -119,7 +119,7 @@ const { airportId } = useRoute().params;
 const { data: airport, error } = await useAsyncData(`airport:${airportId}`, () => aero.airport.get(String(airportId)));
 
 useSeoMeta({
-  title: `${airport.value?.name} (${airport.value?.iataCode || airport.value?.icaoCode || airport.value?.airportId}) - AeroDB`,
+  title: `${airport.value?.iataCode || airport.value?.icaoCode || airport.value?.airportId} - ${airport.value?.name} - AeroDB`,
   description: airport?.value?.name,
 });
 </script>

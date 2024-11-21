@@ -19,7 +19,7 @@ onNuxtReady(async () => {
 });
 
 useSeoMeta({
-  title: `AeroDB`,
+  title: `AeroDB - Your complete and elegant source of aeronautical data`,
   description: 'AeroDB - Your complete and elegant source of aeronautical data',
 });
 </script>

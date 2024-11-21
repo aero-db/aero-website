@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import type { Airport } from '@aerodb/js';
 import { AeroThemePreset } from './theme/theme';
 import { sitemapConfig } from './config/sitemaps.config';
 
