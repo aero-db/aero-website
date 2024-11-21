@@ -13,7 +13,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { palette, usePreset, useTheme } from '@primevue/themes';
 import Topbar from './Topbar.vue';
 
 const showSplash = ref(true);

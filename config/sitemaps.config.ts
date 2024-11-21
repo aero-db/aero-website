@@ -1,4 +1,4 @@
-import type { Airport } from '@aerodb/js';
+import type { Airport, Country } from '@aerodb/js';
 
 export const sitemapConfig = {
   sitemaps: {
@@ -40,6 +40,14 @@ export const sitemapConfig = {
         const data = await fetch('https://api.aerodb.net/airports/all?limit=20000&page=5');
         const res = await data.json();
         return res.map((airport: Airport) => `/airport/${airport.airportId}`);
+      },
+    },
+    airportCountries: {
+      urls: async () => {
+        // fetch your URLs from a database or other source
+        const data = await fetch('https://api.aerodb.net/countries');
+        const res = await data.json();
+        return res.map((country: Country) => `/airports/${country.continent}/${country.alpha2}`);
       },
     },
   },
