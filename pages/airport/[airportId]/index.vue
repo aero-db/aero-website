@@ -26,7 +26,9 @@
             <span class="text-primary-200 mr-2">Location:</span>
             <span class="font-semibold">{{ airport.city }} </span>
 
-            <Icon class="ml-2" v-if="airport.countryCode" :icon="`flag:${airport.countryCode?.toLocaleLowerCase()}-4x3`" />
+            <NuxtLink :to="`/airports/${airport.continent}/${airport.countryCode}`">
+              <Icon class="ml-2" v-if="airport.countryCode" :icon="`flag:${airport.countryCode?.toLocaleLowerCase()}-4x3`" />
+            </NuxtLink>
           </div>
 
           <div v-if="airport.elevation">
