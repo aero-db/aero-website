@@ -1,27 +1,29 @@
 <template>
-  <div class="px-4" v-focustrap>
-    <IconField>
-      <InputIcon>
-        <Icon icon="mdi:search" />
-      </InputIcon>
-      <InputText autofocus type="search" class="w-full" size="large" v-model="search" placeholder="Search for an airport, airline, notam..." />
-    </IconField>
-  </div>
-  <div class="pt-4" v-if="results">
-    <NuxtLink class="flex items-center px-4" :to="`/airport/${airport.airportId}`" v-for="airport in results.airports" :key="airport.airportId">
-      <Icon class="text-primary text-4xl m-2" icon="mdi:airplane" />
-      <div class="flex flex-col">
-        <span class="text-xl flex-1">{{ airport.name }}</span>
-        <div class="flex">
-          <span class="text-muted font-bold text-sm opacity-50">{{ airport.iataCode || airport.icaoCode || airport.airportId }}</span>
+  <div>
+    <div v-focustrap class="px-4">
+      <IconField>
+        <InputIcon>
+          <Icon icon="mdi:search" />
+        </InputIcon>
+        <InputText v-model="search" autofocus type="search" class="w-full" size="large" placeholder="Search for an airport, airline, notam..." />
+      </IconField>
+    </div>
+    <div v-if="results" class="pt-4">
+      <NuxtLink v-for="airport in results.airports" :key="airport.airportId" class="flex items-center px-4" :to="`/airport/${airport.airportId}`">
+        <AirportIcon class="text-primary text-4xl m-2" :airport-type="airport.type" />
+        <div class="flex flex-col">
+          <span class="text-xl flex-1">{{ airport.name }}</span>
+          <div class="flex">
+            <span class="text-muted font-bold text-sm opacity-50">{{ airport.iataCode || airport.icaoCode || airport.airportId }}</span>
+          </div>
         </div>
-      </div>
-    </NuxtLink>
-  </div>
+      </NuxtLink>
+    </div>
 
-  <div v-if="!results && !search" class="text-center flex flex-col opacity-10 items-center justify-center p-24">
-    <Icon class="text-primary text-4xl m-2" icon="mdi:airplane" />
-    <span class="text-2xl">Search for something to begin</span>
+    <div v-if="!results && !search" class="text-center flex flex-col opacity-10 items-center justify-center p-24">
+      <Icon class="text-primary text-4xl m-2" icon="mdi:airplane" />
+      <span class="text-2xl">Search for something to begin</span>
+    </div>
   </div>
 </template>
 

@@ -1,17 +1,17 @@
 <template>
   <div class="container mx-auto p-4">
     <Breadcrumb :model="breadCrumb">
-      <template #item="{ item, props }">
+      <template #item="{ item }">
         <NuxtLink :to="item.url">
           <div class="flex items-center">
             <span>{{ item.label }}</span>
-            <Icon class="ml-2" v-if="item.icon" :icon="item.icon" />
+            <Icon v-if="item.icon" class="ml-2" :icon="item.icon" />
           </div>
         </NuxtLink>
       </template>
     </Breadcrumb>
 
-    <h1 class="mt-4 text-3xl font-bold mb-6" v-if="country">Airports in {{ country.name }}</h1>
+    <h1 v-if="country" class="mt-4 text-3xl font-bold mb-6">Airports in {{ country.name }}</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <NuxtLink
@@ -21,6 +21,7 @@
         class="block p-4 bg-surface-800 text-white rounded-lg shadow hover:bg-primary transition"
       >
         <div class="flex items-center">
+          <AirportIcon class="text-3xl mr-2" :airport-type="airport.type" />
           <span class="flex-1">
             {{ airport.name }}
           </span>

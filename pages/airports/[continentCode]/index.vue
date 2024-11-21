@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto p-4">
     <Breadcrumb :model="breadCrumb">
-      <template #item="{ item, props }">
+      <template #item="{ item }">
         <NuxtLink :to="item.url">
           <span>{{ item.label }}</span>
         </NuxtLink>
@@ -38,7 +38,7 @@ import { continents } from '~/data/continents.data';
 
 const route = useRoute();
 
-const { data: countries, status } = useAsyncData(`countries:${route.params.continentCode}`, () => {
+const { data: countries } = useAsyncData(`countries:${route.params.continentCode}`, () => {
   return aero.countries.list({
     filter: {
       continent: route.params.continentCode,
