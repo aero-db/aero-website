@@ -69,6 +69,4 @@ const breadCrumb: MenuItem[] = [
     icon: `flag:${country.value?.alpha2.toLocaleLowerCase()}-4x3`,
   },
 ];
-
-const continent = continents[String(route.params.continentCode)];
 </script>

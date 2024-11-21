@@ -31,7 +31,7 @@
 import type { api } from '@aerodb/js';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { watchDebounced } from '@vueuse/core';
-import { IconField, InputGroup, InputIcon, InputText } from 'primevue';
+import { IconField, InputIcon, InputText } from 'primevue';
 import { aero } from '~/aero';
 
 const search = ref('');
