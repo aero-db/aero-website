@@ -6,9 +6,3 @@
     </NuxtLayout>
   </div>
 </template>
-
-<script setup lang="ts">
-const nuxtApp = useNuxtApp();
-
-nuxtApp.vueApp;
-</script>

@@ -47,6 +47,7 @@ const { data: airports } = useAsyncData(`airports:country:${route.params.country
     filter: {
       countryCode: route.params.countryCode,
     },
+    limit: 300,
   });
 });
 

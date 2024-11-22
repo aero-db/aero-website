@@ -43,6 +43,7 @@ const { data: countries } = useAsyncData(`countries:${route.params.continentCode
     filter: {
       continent: route.params.continentCode,
     },
+    limit: 300,
   });
 });
 

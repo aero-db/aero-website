@@ -1,20 +1,64 @@
 <template>
   <div class="flex justify-center w-full h-full relative overflow-hidden">
-    <div class="z-10 flex flex-col items-center p-6 top-0 mt-48 left-0 max-w-96">
+    <div class="z-10 flex flex-col items-center p-6 top-0 mt-48 left-0">
       <h1 class="text-4xl font-semibold flex align-middle">
         <Image class="mr-2" src="./icon.svg" :width="48" alt="AeroDB icon" />
         <span>AeroDB</span>
       </h1>
-      <h2 class="mt-4 text-4xl opacity-80 text-center">Your complete and elegant source of aeronautical data</h2>
+      <h2 class="mt-4 text-4xl opacity-80 text-center max-w-96">Your complete and elegant source of aeronautical data</h2>
+
+      <!-- <div class="flex gap-4 mt-8">
+        <NuxtLink
+          v-for="(item, itemIndex) in items"
+          :key="itemIndex"
+          :to="item.url"
+          class="block p-4 px-8 text-white rounded-lg hover:text-primary transition"
+        >
+          <div class="flex items-center">
+            <Icon v-if="item.icon" class="mr-2 text-2xl" :icon="item.icon" />
+            <span class="flex-1 text-xl">
+              {{ item.title }}
+            </span>
+          </div>
+        </NuxtLink>
+      </div> -->
     </div>
-    <div class="absolute mt-20">
+    <div class="absolute mt-20 opacity-45">
       <HomePageGlobe :airports="airports as any" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Icon } from '@iconify/vue/dist/iconify.js';
 import Image from 'primevue/image';
+
+const items: {
+  title: string;
+  url: string;
+  icon?: string;
+}[] = [
+  {
+    title: 'Airports',
+    url: '/airports',
+    icon: 'mdi:airplane',
+  },
+  {
+    title: 'Airlines',
+    url: '/airlines',
+    icon: 'bi:flag',
+  },
+  {
+    title: 'Airports',
+    url: '/airports',
+    icon: 'mdi:airplane',
+  },
+  {
+    title: 'Airlines',
+    url: '/airlines',
+    icon: 'bi:flag',
+  },
+];
 
 const airports = [
   {
