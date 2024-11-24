@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout name="airport">
     <div class="relative h-full">
-      <div v-if="airport" class="absolute z-10 p-4 sm:m-4 w-full sm:max-w-96 rounded-md">
+      <div v-if="airport" class="absolute z-10 sm:m-4 w-full sm:max-w-xl rounded-md backdrop-blur-sm">
         <div class="flex p-2 items-center">
           <div class="text-4xl m-2">
             <AirportIcon :airport-type="airport.type" />
@@ -16,6 +16,24 @@
             </div>
           </div>
         </div>
+
+        <Tabs value="0" class="pb-2 rounded overflow-hidden">
+          <TabList>
+            <Tab value="0" class="flex items-center">
+              <Icon class="mr-2" icon="mdi:map" />
+              <span>Oveview</span>
+            </Tab>
+            <Tab value="1" class="flex items-center">
+              <Icon class="mr-2" icon="mdi:announcement-outline" />
+              <span>NOTAMs</span>
+            </Tab>
+            <Tab value="1" class="flex items-center">
+              <Icon class="mr-2" icon="mdi:announcement-outline" />
+              <span>NOTAMs</span>
+            </Tab>
+            <Tab value="2">Nearby</Tab>
+          </TabList>
+        </Tabs>
 
         <!-- <div>
           <AirportOptions :airportId="airport.airportId" />
@@ -110,7 +128,7 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { Divider, Panel } from 'primevue';
+import { Divider, Panel, TabList, TabPanels, Tabs } from 'primevue';
 import AirportWeather from '~/components/AirportWeather.vue';
 import { aero } from '~/aero';
 import { defineAsyncComponent } from 'vue';
