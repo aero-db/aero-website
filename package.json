@@ -11,7 +11,7 @@
     "start": "node .output/server/index.mjs"
   },
   "dependencies": {
-    "@aerodb/js": "^0.0.24",
+    "@aerodb/js": "^0.0.26",
     "@indoorequal/vue-maplibre-gl": "^7.7.1",
     "@nuxt/eslint": "^0.7.0",
     "@nuxtjs/robots": "^4.1.11",
